@@ -40,7 +40,12 @@ namespace Dev.Codes.Lib.EmailService.EmailSenders
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(_emailConfiguration.From);
             mailMessage.Subject = message.Subject;
-            mailMessage.To.Add(new MailAddress(message.To[0]));
+
+            foreach (var to in message.To)
+            {
+                mailMessage.To.Add(new MailAddress(to));
+            }
+
             mailMessage.Body = message.Content;
             mailMessage.IsBodyHtml = message.IsHtmlContent;
             foreach (var attachment in message.filePaths)

@@ -69,6 +69,14 @@ namespace Dev.Codes.WebApi.Controllers
             return await Task.FromResult(Ok(await _authService.RegisterAsync(userModel)));
         }
 
+        [HttpGet]
+        [Route("verify-account/{verificationKey}")]
+        public async Task<IActionResult> VerifyAccountAsync()
+        {
+
+            return Ok("Great..Activated");
+        }
+
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> CheckAccess()

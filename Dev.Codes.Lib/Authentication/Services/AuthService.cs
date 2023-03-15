@@ -58,9 +58,9 @@ namespace Dev.Codes.Lib.Authentication.Services
                 var confirmationMessage = new Message
                 {
                     To = new List<string>{userModel.Email},
-                    Subject = "Confirm Registration",
-                    IsHtmlContent = false,
-                    Content = "Account registration successfully. Please login with your email and password.\n\nThanks"
+                    Subject = "Account verify",
+                    IsHtmlContent = true,
+                    Content = $"<h1>Account registration successfully.</h1><br><button><a href=\"http://localhost:7038/api/auth/verify-account/{userModel.Id}\">Click to verify account</a></button><br><br><p>Thanks</p>"
                 };
                 await _emailSender.SendEmailAsync(confirmationMessage);
                 return await Task.FromResult(new ResponseDto
