@@ -123,5 +123,22 @@ namespace Dev.Codes.Lib.Database.Contexts
                 return false;
             }
         }
+
+        public async Task<List<T>> GetItemsByFilterDefinitionAsync<T>(DatabaseInfo databaseInfo, FilterDefinition<T> filterDefinition) where T : class, IRepositoryItem
+        {
+            try
+            {
+                var collection = _mongoDbClient.GetCollection<T>(databaseInfo);
+                var itemsCursor = await collection.FindAsync<T>(filterDefinition);
+                var items = await itemsCursor.ToListAsync();
+                Console.WriteLine($"Successfully Get Items by filter count : {JsonConvert.SerializeObject(items.Count)}\n");
+                return items;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Problem Get Items by filter \n");
+                return null;
+            }
+        }
     }
 }
